@@ -13,3 +13,17 @@ spring:
     port: 587
     username: ${gmailSenderLogin}
     password: ${gmailPasswordSMTP}
+
+
+server:
+  port: 8081
+  servlet:
+    context-path: /notification-service
+  error:
+    whitelabel:
+      enabled: false
+    include-message: always
+
+logging:
+  level:
+    root: info

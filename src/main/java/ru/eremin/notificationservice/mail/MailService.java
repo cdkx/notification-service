@@ -1,12 +1,15 @@
 package ru.eremin.notificationservice.mail;
 
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import static ru.eremin.notificationservice.consts.Environment.GMAIL_FROM;
+import static ru.eremin.notificationservice.consts.WebConsts.*;
 
 
 @Slf4j
@@ -14,15 +17,17 @@ import static ru.eremin.notificationservice.consts.Environment.GMAIL_FROM;
 @Service
 public class MailService {
     private final JavaMailSender javaMailSender;
-    private final SimpleMailMessage simpleMail = new SimpleMailMessage();
 
+    @SneakyThrows
+    public String send(String emailTo, String message) {
 
-    public String send() {
-        simpleMail.setFrom(GMAIL_FROM);
-        simpleMail.setTo("viktor451@yandex.ru");
-        simpleMail.setSubject("Java 20 new hot features");
-        simpleMail.setText("Java 20 new hot features. there No attachments :(");
-        javaMailSender.send(simpleMail);
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        helper.setFrom(new InternetAddress(SENDER_EMAIL, SENDER_TEXT));
+        helper.setTo(emailTo);
+        helper.setSubject(message);
+        helper.setText(message + DO_NOT_REPLY, true);
+        javaMailSender.send(mimeMessage);
         return "Mail Sent";
     }
 }
