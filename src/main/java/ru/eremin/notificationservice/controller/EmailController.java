@@ -2,8 +2,6 @@ package ru.eremin.notificationservice.controller;
 
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,14 +18,12 @@ public class EmailController {
     private final MailService mailService;
 
     @PostMapping(CREATE)
-    public ResponseEntity<String> sendMailCreated(@RequestParam String to) {
-        String response = mailService.send(to, USER_CREATED);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public void sendMailCreated(@RequestParam String to) {
+        mailService.send(to, USER_CREATED);
     }
 
     @PostMapping(DELETE)
-    public ResponseEntity<String> sendMailDeleted(@RequestParam String to) {
-        String response = mailService.send(to, USER_DELETED);
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+    public void sendMailDeleted(@RequestParam String to) {
+        mailService.send(to, USER_DELETED);
     }
 }
