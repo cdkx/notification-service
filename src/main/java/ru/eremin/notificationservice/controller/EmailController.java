@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.eremin.notificationservice.mail.MailService;
+import ru.eremin.notificationservice.mail.EmailService;
 
 import static ru.eremin.notificationservice.consts.WebConsts.*;
 
@@ -15,15 +15,15 @@ import static ru.eremin.notificationservice.consts.WebConsts.*;
 @RestController
 @RequestMapping(API + EMAILS)
 public class EmailController {
-    private final MailService mailService;
+    private final EmailService emailService;
 
     @PostMapping(CREATE)
     public void sendMailCreated(@RequestParam String to) {
-        mailService.send(to, USER_CREATED);
+        emailService.sendEmail(to, USER_CREATED);
     }
 
     @PostMapping(DELETE)
     public void sendMailDeleted(@RequestParam String to) {
-        mailService.send(to, USER_DELETED);
+        emailService.sendEmail(to, USER_DELETED);
     }
 }

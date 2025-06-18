@@ -15,12 +15,12 @@ import static ru.eremin.notificationservice.consts.WebConsts.*;
 @Slf4j
 @AllArgsConstructor
 @Service
-public class MailServiceImpl implements MailService {
+public class EmailServiceImpl implements EmailService {
     private final JavaMailSender javaMailSender;
 
     @Override
     @SneakyThrows
-    public void send(String emailTo, String message) {
+    public void sendEmail(String emailTo, String message) {
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         mimeMessage.setFrom(new InternetAddress(SENDER_EMAIL, SENDER_TEXT));
