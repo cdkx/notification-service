@@ -30,5 +30,6 @@ public class EmailServiceImpl implements EmailService {
         mimeMessage.setContent(message + DO_NOT_REPLY, "text/html; charset=utf-8");
         mimeMessage.saveChanges();
         javaMailSender.send(mimeMessage);
+        log.info("Sent email to {} with message {}", emailTo, message);
     }
 }
